@@ -15,4 +15,19 @@ public class GridTile : MonoBehaviour
         Transform hiddenChild = tileObject.transform.Find("Hidden");
         hiddenChild.gameObject.SetActive(true);
     }
+
+    public void OnMouseDown()
+    {
+        ExposeTile();
+    }
+
+    public void OnMouseEnter()
+    {
+        
+    }
+
+    public void OnMouseExit()
+    {
+        
+    }
 }

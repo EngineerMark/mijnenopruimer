@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject gridTile;
 
     public Vector2Int gridSize;
+    public int bombChance;
 
     public GameDifficulty gameDifficulty;
 
@@ -25,16 +26,23 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         gameGrid = new Grid();
-        gameGrid.Generate(gridSize.x, gridSize.y);
+        //gameGrid.Generate(gridSize.x, gridSize.y);
+    }
 
-        // Create a testgrid
+    //Three seperate methods for easier usage in button interaction.
+    public void SetX(int width){
+        gridSize.x = width;
+    }
 
-        //for (int x = 0; x < gridSize.x; x++)
-        //{
-        //    for (int y = 0; y < gridSize.y; y++)
-        //    {
-        //        Instantiate(gridTile, new Vector3(x, 0, y), Quaternion.identity);
-        //    }
-        //}
+    public void SetY(int height){
+        gridSize.y = height;
+    }
+
+    public void SetBombChance(int bombChance){
+        this.bombChance = bombChance;
+    }
+
+    public void Play(){
+        gameGrid.Generate(gridSize.x,gridSize.y,bombChance);
     }
 }

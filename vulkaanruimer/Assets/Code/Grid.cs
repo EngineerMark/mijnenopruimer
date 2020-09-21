@@ -10,7 +10,7 @@ public class Grid
 
     private GridTile[,] tileArray;
 
-    public GridTile[,] Generate(int sizeX, int sizeY)
+    public GridTile[,] Generate(int sizeX, int sizeY, int bombChance)
     {
         GameObject parentGo = new GameObject("GridGroup");
         GridTile[,] newArray = new GridTile[sizeX, sizeY];
@@ -21,7 +21,7 @@ public class Grid
         {
             for (int y = 0; y < sizeY; y++)
             {
-                bool createBomb = (Random.Range(0, 15) == 1);
+                bool createBomb = (Random.Range(0, bombChance) == 1);
 
                 GameObject go = GameObject.Instantiate(createBomb ? GameManager.instance.bombTile : GameManager.instance.regTile);
                 go.transform.position = new Vector3(x, 0, y);
