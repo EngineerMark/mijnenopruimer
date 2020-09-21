@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public GameObject bombTile;
     public GameObject regTile;
 
+    public Grid GameGrid { get => gameGrid; set => gameGrid = value; }
+
     private void Awake()
     {
         instance = this;
@@ -25,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        gameGrid = new Grid();
+        GameGrid = new Grid();
         //gameGrid.Generate(gridSize.x, gridSize.y);
     }
 
@@ -43,6 +45,6 @@ public class GameManager : MonoBehaviour
     }
 
     public void Play(){
-        gameGrid.Generate(gridSize.x,gridSize.y,bombChance);
+        GameGrid.Generate(gridSize.x,gridSize.y,bombChance);
     }
 }

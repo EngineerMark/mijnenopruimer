@@ -10,11 +10,14 @@ public class Grid
 
     private GridTile[,] tileArray;
 
+
     public GridTile[,] Generate(int sizeX, int sizeY, int bombChance)
     {
         GameObject parentGo = new GameObject("GridGroup");
         GridTile[,] newArray = new GridTile[sizeX, sizeY];
 
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
 
         //Generate map
         for (int x = 0; x < sizeX; x++)
@@ -31,8 +34,8 @@ public class Grid
                 newTile.isBomb = createBomb;
                 newTile.tileObject = go;
 
-                Debug.Log("New tile generated at " + go.transform.position);
-
+                //Debug.Log("New tile generated at " + go.transform.position);
+                newTile.GridPosition = new Vector2Int(x, y);
                 newArray[x, y] = newTile;
                 //newTile.ExposeTile();
             }
@@ -59,6 +62,12 @@ public class Grid
 
         parentGo.transform.position = new Vector3(-sizeX * 0.5f + 1, -sizeY * 0.5f + 1);
 
+        tileArray = newArray;
+
         return newArray;
+    }
+
+    public GridTile GetTile(int x, int y){
+        return tileArray[x, y];
     }
 }
