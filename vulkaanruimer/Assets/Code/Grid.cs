@@ -10,8 +10,12 @@ public class Grid
 
     private GridTile[,] tileArray;
 
+    public bool interactible = true;
 
-    public GridTile[,] Generate(int sizeX, int sizeY, int bombChance)
+    private List<Vector2Int> bombPositions;
+
+
+    public GridTile[,] Generate(int sizeX, int sizeY, int bombs)
     {
         GameObject parentGo = new GameObject("GridGroup");
         GridTile[,] newArray = new GridTile[sizeX, sizeY];
@@ -19,13 +23,24 @@ public class Grid
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
+        bombPositions = new List<Vector2Int>();
+        int[,] localTempBombPos = new int[sizeX, sizeY];
+        //Generate bomb field first
+        for (int i = 0; i < bombs; i++)
+        {
+            int x = Random.Range(0,sizeX-1);
+            int y = Random.Range(0,sizeY-1);
+            bombPositions.Add(new Vector2Int(x, y));
+            localTempBombPos[x, y] = 1;
+        }
+
         //Generate map
         for (int x = 0; x < sizeX; x++)
         {
             for (int y = 0; y < sizeY; y++)
             {
-                bool createBomb = (Random.Range(0, bombChance) == 1);
-
+                //bool createBomb = (Random.Range(0, bombChance) == 1);
+                bool createBomb = localTempBombPos[x, y] ==  1;
                 GameObject go = GameObject.Instantiate(createBomb ? GameManager.instance.bombTile : GameManager.instance.regTile);
                 go.transform.position = new Vector3(x, 0, y);
                 go.transform.parent = parentGo.transform;
@@ -36,6 +51,7 @@ public class Grid
 
                 //Debug.Log("New tile generated at " + go.transform.position);
                 newTile.GridPosition = new Vector2Int(x, y);
+                newTile.parentGrid = this;
                 newArray[x, y] = newTile;
                 //newTile.ExposeTile();
             }
@@ -65,6 +81,18 @@ public class Grid
         tileArray = newArray;
 
         return newArray;
+    }
+
+    public IEnumerator BombRevealer(){
+        for (int i = 0; i < bombPositions.Count; i++)
+        {
+            if(GetTile(bombPositions[i].x, bombPositions[i].y).isBomb){
+                GetTile(bombPositions[i].x, bombPositions[i].y).ExposeTile(true);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        yield return null;
     }
 
     public GridTile GetTile(int x, int y){

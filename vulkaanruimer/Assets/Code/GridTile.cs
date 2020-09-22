@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GridTile : MonoBehaviour
 {
@@ -11,14 +12,39 @@ public class GridTile : MonoBehaviour
     public int bombCount = 0;
     private Vector2Int gridPosition;
 
+    private GameObject numericDisplay;
+    private GameObject markerDisplay;
+
     public Vector2Int GridPosition { get => gridPosition; set => gridPosition = value; }
 
-    public void ExposeTile(){
+    public Grid parentGrid;
+
+    private void Awake()
+    {
+        numericDisplay = transform.Find("IconDisplay/NumericDisplay").gameObject;
+        markerDisplay = transform.Find("IconDisplay/MarkerDisplay").gameObject;
+    }
+
+    public void ExposeTile(bool death = false){
         unlocked = true;
         Transform hiddenChild = tileObject.transform.Find("Hidden");
         hiddenChild.gameObject.SetActive(true);
 
-        if (bombCount == 0)
+        if (marked)
+            MarkTile();
+
+        if(bombCount>0&&!isBomb){
+            numericDisplay.SetActive(true);
+            numericDisplay.GetComponent<Text>().text = bombCount+"";
+        }
+
+        if(isBomb && !death)
+        {
+            GameManager.instance.GameOver();
+            return;
+        }
+
+        if (bombCount == 0 && !death)
         {
             // Lets recursive check surrounding tiles
             for (int x = -1; x <= 1; x++)
@@ -40,9 +66,19 @@ public class GridTile : MonoBehaviour
         }
     }
 
-    public void OnMouseDown()
+    private void MarkTile(){
+        marked = !marked;
+        markerDisplay.SetActive(marked);
+    }
+
+    public void OnMouseOver()
     {
-        ExposeTile();
+        if (unlocked || !parentGrid.interactible)
+            return;
+        if (Input.GetMouseButtonDown(GameManager.instance.revealMouseButton))
+            ExposeTile();
+        else if (Input.GetMouseButtonDown(GameManager.instance.markerMouseButton))
+            MarkTile();
     }
 
     public void OnMouseEnter()
