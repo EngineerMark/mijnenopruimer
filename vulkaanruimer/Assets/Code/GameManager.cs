@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     public GameObject bombTile;
     public GameObject regTile;
 
+    [Header("Misc")]
+    public GameObject gameOverPanel;
+
     public Grid GameGrid { get => gameGrid; set => gameGrid = value; }
 
     private void Awake()
@@ -38,13 +41,21 @@ public class GameManager : MonoBehaviour
         //gameGrid.Generate(gridSize.x, gridSize.y);
     }
 
+    public void ResetGame(){
+        GameGrid.KillTiles();
+        GameGrid = new Grid();
+    }
+
     public void GameOver(){
         GameGrid.interactible = false;
+        StartCoroutine(InternalGameOver());
+    }
 
-        //Reveal bombs
-        StartCoroutine(GameGrid.BombRevealer());
-
-        //Show deathscreen
+    private IEnumerator InternalGameOver(){
+        yield return GameGrid.BombRevealer();
+        yield return new WaitForSeconds(2f);
+        gameOverPanel.SetActive(true);
+        yield return null;
     }
 
     //Three seperate methods for easier usage in button interaction.

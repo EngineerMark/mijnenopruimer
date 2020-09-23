@@ -13,11 +13,12 @@ public class Grid
     public bool interactible = true;
 
     private List<Vector2Int> bombPositions;
+    private GameObject gridParent;
 
 
     public GridTile[,] Generate(int sizeX, int sizeY, int bombs)
     {
-        GameObject parentGo = new GameObject("GridGroup");
+        gridParent = new GameObject("GridGroup");
         GridTile[,] newArray = new GridTile[sizeX, sizeY];
 
         this.sizeX = sizeX;
@@ -28,8 +29,8 @@ public class Grid
         //Generate bomb field first
         for (int i = 0; i < bombs; i++)
         {
-            int x = Random.Range(0,sizeX-1);
-            int y = Random.Range(0,sizeY-1);
+            int x = Random.Range(0, sizeX - 1);
+            int y = Random.Range(0, sizeY - 1);
             bombPositions.Add(new Vector2Int(x, y));
             localTempBombPos[x, y] = 1;
         }
@@ -40,10 +41,10 @@ public class Grid
             for (int y = 0; y < sizeY; y++)
             {
                 //bool createBomb = (Random.Range(0, bombChance) == 1);
-                bool createBomb = localTempBombPos[x, y] ==  1;
+                bool createBomb = localTempBombPos[x, y] == 1;
                 GameObject go = GameObject.Instantiate(createBomb ? GameManager.instance.bombTile : GameManager.instance.regTile);
                 go.transform.position = new Vector3(x, 0, y);
-                go.transform.parent = parentGo.transform;
+                go.transform.parent = gridParent.transform;
 
                 GridTile newTile = go.AddComponent<GridTile>();
                 newTile.isBomb = createBomb;
@@ -76,26 +77,41 @@ public class Grid
             }
         }
 
-        parentGo.transform.position = new Vector3(-sizeX * 0.5f + 1, -sizeY * 0.5f + 1);
+        gridParent.transform.position = new Vector3(-sizeX * 0.5f + 1, 0, -sizeY * 0.5f + 1);
 
         tileArray = newArray;
 
         return newArray;
     }
 
-    public IEnumerator BombRevealer(){
+    public IEnumerator BombRevealer()
+    {
         for (int i = 0; i < bombPositions.Count; i++)
         {
-            if(GetTile(bombPositions[i].x, bombPositions[i].y).isBomb){
+            if (GetTile(bombPositions[i].x, bombPositions[i].y).isBomb)
+            {
                 GetTile(bombPositions[i].x, bombPositions[i].y).ExposeTile(true);
                 yield return new WaitForSeconds(0.2f);
             }
         }
-
-        yield return null;
     }
 
-    public GridTile GetTile(int x, int y){
+    public void KillTiles()
+    {
+        //For game over or dev
+        //Remove all tile objects
+        for (int x = 0; x < tileArray.GetLength(0); x++)
+        {
+            for (int y = 0; y < tileArray.GetLength(1); y++)
+            {
+                GameObject.Destroy(tileArray[x, y].gameObject);
+            }
+        }
+        GameObject.Destroy(gridParent);
+    }
+
+    public GridTile GetTile(int x, int y)
+    {
         return tileArray[x, y];
     }
 }
