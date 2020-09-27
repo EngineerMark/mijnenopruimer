@@ -16,8 +16,14 @@ public class Grid
     private GameObject gridParent;
 
 
-    public GridTile[,] Generate(int sizeX, int sizeY, int bombs)
+    public void Generate(int sizeX, int sizeY, int bombs)
     {
+        GameManager.instance.StartCoroutine(InternalGenerate(sizeX, sizeY, bombs));
+    }
+
+    private IEnumerator InternalGenerate(int sizeX, int sizeY, int bombs)
+    {
+        interactible = false;
         gridParent = new GameObject("GridGroup");
         GridTile[,] newArray = new GridTile[sizeX, sizeY];
 
@@ -80,8 +86,9 @@ public class Grid
         gridParent.transform.position = new Vector3(-sizeX * 0.5f + 1, 0, -sizeY * 0.5f + 1);
 
         tileArray = newArray;
+        interactible = true;
+        yield return null;
 
-        return newArray;
     }
 
     public IEnumerator BombRevealer()

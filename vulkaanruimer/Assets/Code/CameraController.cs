@@ -15,7 +15,6 @@ public class CameraController : MonoBehaviour
 
     [Header("Zoom")]
 
-
     [Header("Rotation")]
     public float rotSpeed = 3.5f;
     private float rotX;
@@ -31,7 +30,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         Move();
-        Zoom();
+        //Zoom();
         Rotate();
     }
 
@@ -49,7 +48,7 @@ public class CameraController : MonoBehaviour
     }
 
     private void Zoom(){
-        
+        float scrollInput = Input.GetAxis("Mouse Scrollwheel");
     }
 
     private void Rotate(){
