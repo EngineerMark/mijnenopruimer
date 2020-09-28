@@ -8991,6 +8991,8 @@ MonoBehaviour:
   moveSpeed: 4
   shiftMoveSpeed: 8
   cameraConstraints: {fileID: 132109337}
+  zoomMultiplier: 5
+  zoomConstraints: {x: 1, y: 15}
   rotSpeed: 3.5
   rotXConstraint: {x: 5, y: 90}
 --- !u!1 &2050542873

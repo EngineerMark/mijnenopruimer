@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         gameOverPanel.SetActive(true);
         backgroundPanel.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         yield return null;
     }
 

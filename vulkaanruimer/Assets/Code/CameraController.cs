@@ -14,6 +14,8 @@ public class CameraController : MonoBehaviour
     public BoxCollider cameraConstraints;
 
     [Header("Zoom")]
+    public float zoomMultiplier = 1f;
+    public Vector2 zoomConstraints;
 
     [Header("Rotation")]
     public float rotSpeed = 3.5f;
@@ -32,7 +34,7 @@ public class CameraController : MonoBehaviour
         if (!GameManager.instance.backgroundPanel.activeSelf)
         {
             Move();
-            //Zoom();
+            Zoom();
             Rotate();
         }
     }
@@ -51,16 +53,29 @@ public class CameraController : MonoBehaviour
     }
 
     private void Zoom(){
-        float scrollInput = Input.GetAxis("Mouse Scrollwheel");
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollInput != 0){
+            scrollInput *= zoomMultiplier;
+            float zPosition = -childCamera.transform.localPosition.z - scrollInput;
+
+            zPosition = Mathf.Clamp(zPosition, zoomConstraints.x, zoomConstraints.y);
+            childCamera.transform.localPosition = new Vector3(0,0, -zPosition);
+            Debug.Log("Zoom: " + zPosition);
+        }
     }
 
     private void Rotate(){
         if (Input.GetMouseButton(2))
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             rotatingChild.Rotate(new Vector3(Input.GetAxis("Mouse Y") * rotSpeed, -Input.GetAxis("Mouse X") * rotSpeed, 0));
             rotX = Mathf.Clamp(rotatingChild.rotation.eulerAngles.x, rotXConstraint.x, rotXConstraint.y);
             rotY = rotatingChild.rotation.eulerAngles.y;
             rotatingChild.rotation = Quaternion.Euler(rotX, rotY, 0);
+        }else{
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
