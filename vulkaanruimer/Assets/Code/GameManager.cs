@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     public GameObject gameOverPanel;
+    public GameObject backgroundPanel;
 
     public Grid GameGrid { get => gameGrid; set => gameGrid = value; }
 
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         yield return GameGrid.BombRevealer();
         yield return new WaitForSeconds(2f);
         gameOverPanel.SetActive(true);
+        backgroundPanel.SetActive(true);
         yield return null;
     }
 
@@ -73,5 +75,6 @@ public class GameManager : MonoBehaviour
 
     public void Play(){
         GameGrid.Generate(gridSize.x,gridSize.y, bombCount);
+        backgroundPanel.SetActive(false);
     }
 }

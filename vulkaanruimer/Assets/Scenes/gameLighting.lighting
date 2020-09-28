@@ -9,8 +9,8 @@ LightingSettings:
   m_Name: gameLighting
   serializedVersion: 2
   m_GIWorkflowMode: 0
-  m_EnableBakedLightmaps: 1
-  m_EnableRealtimeLightmaps: 1
+  m_EnableBakedLightmaps: 0
+  m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
   m_AlbedoBoost: 1
@@ -42,7 +42,7 @@ LightingSettings:
   m_PVRSampling: 1
   m_PVRDirectSampleCount: 16
   m_PVRSampleCount: 150
-  m_PVREnvironmentSampleCount: 250
+  m_PVREnvironmentSampleCount: 100
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 2
   m_PVRBounces: 1

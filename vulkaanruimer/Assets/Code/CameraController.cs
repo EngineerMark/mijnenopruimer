@@ -29,9 +29,12 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        Move();
-        //Zoom();
-        Rotate();
+        if (!GameManager.instance.backgroundPanel.activeSelf)
+        {
+            Move();
+            //Zoom();
+            Rotate();
+        }
     }
 
     private void Move(){
