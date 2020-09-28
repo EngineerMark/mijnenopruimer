@@ -60,7 +60,7 @@ public class CameraController : MonoBehaviour
 
             zPosition = Mathf.Clamp(zPosition, zoomConstraints.x, zoomConstraints.y);
             childCamera.transform.localPosition = new Vector3(0,0, -zPosition);
-            Debug.Log("Zoom: " + zPosition);
+            //Debug.Log("Zoom: " + zPosition);
         }
     }
 
