@@ -7,10 +7,23 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     public Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
 
+    public Text flagCounterText;
+
+    public Text correctFlagText;
+    public Text falsePositivesText;
+    public Text flagsUsedText;
+
     private bool currentFullscreen = false;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -47,6 +60,14 @@ public class UIManager : MonoBehaviour
         {
             ToggleFullscreen(fullscreenToggle);
         });
+    }
+
+    public void UpdateScoreUI(){
+        flagCounterText.text = ""+GameManager.instance.GameGrid.FlagsLeft;
+
+        correctFlagText.text = "Correct flags: " + GameManager.instance.GameGrid.correctFlags;
+        falsePositivesText.text = "False positives: " + GameManager.instance.GameGrid.falsePositives;
+        flagsUsedText.text = "Flags used: " + GameManager.instance.GameGrid.flagsUsed;
     }
 
     public void SwitchResolution(Dropdown dropdown){

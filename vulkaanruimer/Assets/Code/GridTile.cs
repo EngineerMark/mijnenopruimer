@@ -12,8 +12,9 @@ public class GridTile : MonoBehaviour
     public int bombCount = 0;
     private Vector2Int gridPosition;
 
-    private GameObject numericDisplay;
-    private GameObject markerDisplay;
+    public GameObject numericDisplay;
+    public GameObject markerDisplay;
+    public GameObject incorrectFlagDisplay;
 
     public Vector2Int GridPosition { get => gridPosition; set => gridPosition = value; }
 
@@ -23,6 +24,7 @@ public class GridTile : MonoBehaviour
     {
         numericDisplay = transform.Find("IconDisplay/NumericDisplay").gameObject;
         markerDisplay = transform.Find("IconDisplay/MarkerDisplay").gameObject;
+        incorrectFlagDisplay = transform.Find("IconDisplay/IncorrectFlagDisplay").gameObject;
     }
 
     public void ExposeTile(bool death = false){
@@ -67,8 +69,19 @@ public class GridTile : MonoBehaviour
     }
 
     private void MarkTile(){
-        marked = !marked;
+        bool state = marked;
+
+        if(state==true && GameManager.instance.GameGrid.FlagsLeft>=0)
+        {
+            marked = false;
+            GameManager.instance.GameGrid.FlagsLeft++;
+        }else if(state==false && GameManager.instance.GameGrid.FlagsLeft>=1){
+            marked = true;
+            GameManager.instance.GameGrid.FlagsLeft--;
+        }
+
         markerDisplay.SetActive(marked);
+        UIManager.instance.UpdateScoreUI();
     }
 
     public void OnMouseOver()

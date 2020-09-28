@@ -15,6 +15,14 @@ public class Grid
     private List<Vector2Int> bombPositions;
     private GameObject gridParent;
 
+    private int flagsLeft = 40;
+
+    public int FlagsLeft { get => flagsLeft; set => flagsLeft = value; }
+
+    // End game scoring
+    public int correctFlags;
+    public int falsePositives;
+    public int flagsUsed;
 
     public void Generate(int sizeX, int sizeY, int bombs)
     {
@@ -93,14 +101,29 @@ public class Grid
 
     public IEnumerator BombRevealer()
     {
+        List<GridTile> markedTiles = GetMarkedTiles();
         for (int i = 0; i < bombPositions.Count; i++)
         {
-            if (GetTile(bombPositions[i].x, bombPositions[i].y).isBomb)
+            GridTile tile = GetTile(bombPositions[i].x, bombPositions[i].y);
+            if (tile.isBomb)
             {
-                GetTile(bombPositions[i].x, bombPositions[i].y).ExposeTile(true);
+                if (tile.marked)
+                    correctFlags++;
+                tile.incorrectFlagDisplay.SetActive(true);
+                tile.ExposeTile(true);
                 yield return new WaitForSeconds(0.2f);
             }
         }
+        flagsUsed = markedTiles.Count;
+        foreach(GridTile tile in markedTiles){
+            if(!tile.isBomb){
+                falsePositives++;
+                tile.markerDisplay.SetActive(false);
+                tile.incorrectFlagDisplay.SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        UIManager.instance.UpdateScoreUI();
     }
 
     public void KillTiles()
@@ -115,6 +138,15 @@ public class Grid
             }
         }
         GameObject.Destroy(gridParent);
+    }
+
+    public List<GridTile> GetMarkedTiles(){
+        List<GridTile> tiles = new List<GridTile>();
+        foreach(GridTile tile in tileArray){
+            if (tile.marked)
+                tiles.Add(tile);
+        }
+        return tiles;
     }
 
     public GridTile GetTile(int x, int y)

@@ -331,10 +331,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 7324841832333031718, guid: 640771eb12c597e41b91ee2987cf148e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9149674398071691730, guid: 640771eb12c597e41b91ee2987cf148e, type: 3}
       propertyPath: m_Name
       value: IconDisplay
