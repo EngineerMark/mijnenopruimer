@@ -39,7 +39,9 @@ public class GridTile : MonoBehaviour
         //Check for surrounding bombs
         if(bombCount>0&&!isBomb){
             numericDisplay.SetActive(true);
-            numericDisplay.GetComponent<Text>().text = bombCount+"";
+            Text t = numericDisplay.GetComponent<Text>();
+            t.text = bombCount+"";
+            t.color = GameManager.instance.neighborValueColor[bombCount];
         }
 
         //Check if clicked on bomb

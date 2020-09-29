@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4513814, g: 0.500442, b: 0.5699947, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3707,6 +3707,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4506666275846278, guid: 80919aaf925554880b9b809635f0dd9b, type: 3}
   m_PrefabInstance: {fileID: 99832286}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &647970309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 647970310}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &647970310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647970309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.362623, y: 6.1769037, z: 4.0348425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &649251042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4405,13 +4435,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.22631046, y: -0.251615, z: 0.060639694, w: 0.9390401}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.1, y: -30, z: 0}
 --- !u!1001 &705737255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11328,6 +11358,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7da43c2f32a7b084da7e844f7a36c045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neighborValueColor:
+  - {r: 0.053933144, g: 0, b: 1, a: 1}
+  - {r: 0.05864111, g: 0.3679245, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.47562408, g: 0, b: 1, a: 1}
+  - {r: 0.5283019, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0.5377358, b: 0.3846862, a: 1}
+  - {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
+  - {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
   gridTile: {fileID: 4686339283229645695, guid: d9c1febc627a24b4895d12a4c4f51443, type: 3}
   gridSize: {x: 20, y: 20}
   bombCount: 0

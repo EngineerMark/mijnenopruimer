@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("Grid Data")]
+    public Color[] neighborValueColor;
     public GameObject gridTile;
 
     public Vector2Int gridSize;
