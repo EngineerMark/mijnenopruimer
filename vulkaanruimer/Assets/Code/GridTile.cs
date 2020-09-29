@@ -27,7 +27,12 @@ public class GridTile : MonoBehaviour
         incorrectFlagDisplay = transform.Find("IconDisplay/IncorrectFlagDisplay").gameObject;
     }
 
-    public void ExposeTile(bool death = false){
+    private void Update()
+    {
+    }
+
+    public void ExposeTile(bool death = false)
+    {
         unlocked = true;
         Transform hiddenChild = tileObject.transform.Find("Hidden");
         hiddenChild.gameObject.SetActive(true);
@@ -37,22 +42,23 @@ public class GridTile : MonoBehaviour
             MarkTile();
 
         //Check for surrounding bombs
-        if(bombCount>0&&!isBomb){
+        if (bombCount > 0 && !isBomb)
+        {
             numericDisplay.SetActive(true);
             Text t = numericDisplay.GetComponent<Text>();
-            t.text = bombCount+"";
+            t.text = bombCount + "";
             t.color = GameManager.instance.neighborValueColor[bombCount];
         }
 
         //Check if clicked on bomb
-        if(isBomb && !death)
+        if (isBomb && !death)
         {
             GameManager.instance.GameOver();
             return;
         }
 
         //Check if all tiles are uncovered after this one
-        if(GameManager.instance.GameGrid.GetLeftTilesCount()==0 && !death)
+        if (GameManager.instance.GameGrid.GetLeftTilesCount() == 0 && !death)
         {
             GameManager.instance.GameWin();
             return;
@@ -69,7 +75,7 @@ public class GridTile : MonoBehaviour
                     if (x == 0 && y == 0) continue;
                     if (GridPosition.x + x < 0 || GridPosition.y + y < 0) continue;
 
-                    if (GridPosition.x + x >= GameManager.instance.GameGrid.sizeX || 
+                    if (GridPosition.x + x >= GameManager.instance.GameGrid.sizeX ||
                         GridPosition.y + y >= GameManager.instance.GameGrid.sizeY) continue;
 
                     GridTile neighbor = GameManager.instance.GameGrid.GetTile(GridPosition.x + x, GridPosition.y + y);
@@ -81,14 +87,17 @@ public class GridTile : MonoBehaviour
         }
     }
 
-    private void MarkTile(){
+    private void MarkTile()
+    {
         bool state = marked;
 
-        if(state==true && GameManager.instance.GameGrid.FlagsLeft>=0)
+        if (state == true && GameManager.instance.GameGrid.FlagsLeft >= 0)
         {
             marked = false;
             GameManager.instance.GameGrid.FlagsLeft++;
-        }else if(state==false && GameManager.instance.GameGrid.FlagsLeft>=1){
+        }
+        else if (state == false && GameManager.instance.GameGrid.FlagsLeft >= 1)
+        {
             marked = true;
             GameManager.instance.GameGrid.FlagsLeft--;
         }
@@ -109,11 +118,11 @@ public class GridTile : MonoBehaviour
 
     public void OnMouseEnter()
     {
-        
+
     }
 
     public void OnMouseExit()
     {
-        
+
     }
 }

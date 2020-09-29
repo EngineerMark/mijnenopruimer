@@ -93,8 +93,8 @@ public class Grid
                     for (int yCheck = -1; yCheck <= 1; yCheck++)
                     {
                         if (xCheck == x && yCheck == y) continue;
-                        if (x + xCheck < 0 || x + xCheck >= sizeX - 1) continue;
-                        if (y + yCheck < 0 || y + yCheck >= sizeY - 1) continue;
+                        if (x + xCheck < 0 || x + xCheck >= sizeX) continue;
+                        if (y + yCheck < 0 || y + yCheck >= sizeY) continue;
                         if (newArray[x + xCheck, y + yCheck].isBomb)
                             newArray[x, y].bombCount++;
                     }

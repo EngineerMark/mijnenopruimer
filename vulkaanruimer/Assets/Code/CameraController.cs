@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public static CameraController instance;
 
-    private Camera childCamera;
-    private Transform rotatingChild;
+    public Camera childCamera;
+    public Transform rotatingChild;
 
     [Header("Move")]
     public float moveSpeed;
@@ -22,6 +23,11 @@ public class CameraController : MonoBehaviour
     private float rotX;
     private float rotY;
     public Vector2 rotXConstraint;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

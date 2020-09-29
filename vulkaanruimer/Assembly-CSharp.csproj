@@ -62,6 +62,7 @@
     <Compile Include="Assets\Code\CameraController.cs" />
     <Compile Include="Assets\Code\GameManager.cs" />
     <Compile Include="Assets\Code\AudioManager.cs" />
+    <Compile Include="Assets\Code\LoadManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
