@@ -13,10 +13,12 @@ public class UIManager : MonoBehaviour
     public Toggle fullscreenToggle;
 
     public Text flagCounterText;
+    public Text gameTimerText;
 
     public Text correctFlagText;
     public Text falsePositivesText;
     public Text flagsUsedText;
+    public Text timeUsedText;
 
     private bool currentFullscreen = false;
 
@@ -68,6 +70,9 @@ public class UIManager : MonoBehaviour
         correctFlagText.text = "Correct flags: " + GameManager.instance.GameGrid.correctFlags;
         falsePositivesText.text = "False positives: " + GameManager.instance.GameGrid.falsePositives;
         flagsUsedText.text = "Flags used: " + GameManager.instance.GameGrid.flagsUsed;
+        int seconds = (int)(GameManager.instance.GameGrid.timer % 60);
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        timeUsedText.text = string.Format("Time taken: {0:D2}:{1:D2}", time.Minutes, time.Seconds);
     }
 
     public void SwitchResolution(Dropdown dropdown){

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     public GameObject gameOverPanel;
+    public GameObject gameWinPanel;
     public GameObject backgroundPanel;
 
     public Grid GameGrid { get => gameGrid; set => gameGrid = value; }
@@ -42,6 +44,13 @@ public class GameManager : MonoBehaviour
         //gameGrid.Generate(gridSize.x, gridSize.y);
     }
 
+    public void Update()
+    {
+        if (GameGrid.interactible){
+            GameGrid.Update();
+        }
+    }
+
     public void ResetGame(){
         GameGrid.KillTiles();
         GameGrid = new Grid();
@@ -52,10 +61,26 @@ public class GameManager : MonoBehaviour
         StartCoroutine(InternalGameOver());
     }
 
+    public void GameWin(){
+        GameGrid.interactible = false;
+        StartCoroutine(InternalGameWin());
+    }
+
     private IEnumerator InternalGameOver(){
         yield return GameGrid.BombRevealer();
         yield return new WaitForSeconds(2f);
         gameOverPanel.SetActive(true);
+        backgroundPanel.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        yield return null;
+    }
+
+    private IEnumerator InternalGameWin()
+    {
+        yield return GameGrid.BombRevealer();
+        yield return new WaitForSeconds(2f);
+        gameWinPanel.SetActive(true);
         backgroundPanel.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

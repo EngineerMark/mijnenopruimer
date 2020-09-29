@@ -32,20 +32,31 @@ public class GridTile : MonoBehaviour
         Transform hiddenChild = tileObject.transform.Find("Hidden");
         hiddenChild.gameObject.SetActive(true);
 
+        //Unmark if marked
         if (marked)
             MarkTile();
 
+        //Check for surrounding bombs
         if(bombCount>0&&!isBomb){
             numericDisplay.SetActive(true);
             numericDisplay.GetComponent<Text>().text = bombCount+"";
         }
 
+        //Check if clicked on bomb
         if(isBomb && !death)
         {
             GameManager.instance.GameOver();
             return;
         }
 
+        //Check if all tiles are uncovered after this one
+        if(GameManager.instance.GameGrid.GetLeftTilesCount()==0 && !death)
+        {
+            GameManager.instance.GameWin();
+            return;
+        }
+
+        //Uncover surrounding tiles
         if (bombCount == 0 && !death)
         {
             // Lets recursive check surrounding tiles

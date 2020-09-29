@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,7 +11,7 @@ public class Grid
 
     private GridTile[,] tileArray;
 
-    public bool interactible = true;
+    public bool interactible = false;
 
     private List<Vector2Int> bombPositions;
     private GameObject gridParent;
@@ -24,9 +25,19 @@ public class Grid
     public int falsePositives;
     public int flagsUsed;
 
+    public float timer;
+
     public void Generate(int sizeX, int sizeY, int bombs)
     {
         GameManager.instance.StartCoroutine(InternalGenerate(sizeX, sizeY, bombs));
+    }
+
+    public void Update()
+    {
+        timer += Time.deltaTime;
+        int seconds = (int)(timer % 60);
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        UIManager.instance.gameTimerText.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
     }
 
     private IEnumerator InternalGenerate(int sizeX, int sizeY, int bombs)
@@ -43,8 +54,8 @@ public class Grid
         //Generate bomb field first
         for (int i = 0; i < bombs; i++)
         {
-            int x = Random.Range(0, sizeX - 1);
-            int y = Random.Range(0, sizeY - 1);
+            int x = UnityEngine.Random.Range(0, sizeX - 1);
+            int y = UnityEngine.Random.Range(0, sizeY - 1);
             bombPositions.Add(new Vector2Int(x, y));
             localTempBombPos[x, y] = 1;
         }
@@ -115,8 +126,10 @@ public class Grid
             }
         }
         flagsUsed = markedTiles.Count;
-        foreach(GridTile tile in markedTiles){
-            if(!tile.isBomb){
+        foreach (GridTile tile in markedTiles)
+        {
+            if (!tile.isBomb)
+            {
                 falsePositives++;
                 tile.markerDisplay.SetActive(false);
                 tile.incorrectFlagDisplay.SetActive(true);
@@ -140,13 +153,24 @@ public class Grid
         GameObject.Destroy(gridParent);
     }
 
-    public List<GridTile> GetMarkedTiles(){
+    public List<GridTile> GetMarkedTiles()
+    {
         List<GridTile> tiles = new List<GridTile>();
-        foreach(GridTile tile in tileArray){
+        foreach (GridTile tile in tileArray)
+        {
             if (tile.marked)
                 tiles.Add(tile);
         }
         return tiles;
+    }
+
+    public int GetLeftTilesCount(){
+        int val = 0;
+        foreach(GridTile tile in tileArray){
+            if (!tile.isBomb && !tile.unlocked)
+                val++;
+        }
+        return val;
     }
 
     public GridTile GetTile(int x, int y)
