@@ -95,11 +95,13 @@ public class GridTile : MonoBehaviour
         {
             marked = false;
             GameManager.instance.GameGrid.FlagsLeft++;
+            AudioManager.instance.Play(AudioManager.instance.flagPlacementSFX);
         }
         else if (state == false && GameManager.instance.GameGrid.FlagsLeft >= 1)
         {
             marked = true;
             GameManager.instance.GameGrid.FlagsLeft--;
+            AudioManager.instance.Play(AudioManager.instance.flagPlacementSFX);
         }
 
         markerDisplay.SetActive(marked);
