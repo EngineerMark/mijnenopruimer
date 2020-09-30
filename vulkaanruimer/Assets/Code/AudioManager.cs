@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     [Header("Sound Effects")]
     public AudioClip flagPlacementSFX;
     [Header("Music")]
+    public AudioClip musicClip;
 
     [Header("Audio Sources")]
     public AudioSource audioSourceSFX;
@@ -21,11 +22,17 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if(instance==null)
+            instance = this;
+        else
+            Destroy(gameObject); 
     }
 
     private void Start()
     {
+        audioSourceMusic.clip = musicClip;
+        audioSourceMusic.loop = true;
+        audioSourceMusic.Play();
     }
 
     public void Play(AudioClip clip){
