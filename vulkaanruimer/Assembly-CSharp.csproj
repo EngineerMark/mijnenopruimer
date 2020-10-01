@@ -63,6 +63,7 @@
     <Compile Include="Assets\Code\Managers\CameraController.cs" />
     <Compile Include="Assets\Code\Managers\AudioManager.cs" />
     <Compile Include="Assets\Code\Managers\GameManager.cs" />
+    <Compile Include="Assets\Code\UITween.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Audio\Dreamer by Hazy\Copy this to your video description.txt" />
