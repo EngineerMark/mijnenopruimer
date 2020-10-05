@@ -50,27 +50,32 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (GameGrid.interactible){
+        if (GameGrid.interactible)
+        {
             GameGrid.Update();
         }
     }
 
-    public void ResetGame(){
+    public void ResetGame()
+    {
         GameGrid.KillTiles();
         GameGrid = new Grid();
     }
 
-    public void GameOver(){
+    public void GameOver()
+    {
         GameGrid.interactible = false;
         StartCoroutine(InternalGameOver());
     }
 
-    public void GameWin(){
+    public void GameWin()
+    {
         GameGrid.interactible = false;
         StartCoroutine(InternalGameWin());
     }
 
-    private IEnumerator InternalGameOver(){
+    private IEnumerator InternalGameOver()
+    {
         yield return GameGrid.BombRevealer();
         yield return new WaitForSeconds(2f);
         gameOverPanel.SetActive(true);
@@ -92,20 +97,25 @@ public class GameManager : MonoBehaviour
     }
 
     //Three seperate methods for easier usage in button interaction.
-    public void SetX(int width){
+    public void SetX(int width)
+    {
         gridSize.x = width;
     }
 
-    public void SetY(int height){
+    public void SetY(int height)
+    {
         gridSize.y = height;
     }
 
-    public void SetBombCount(int bombCount){
+    public void SetBombCount(int bombCount)
+    {
         this.bombCount = bombCount;
     }
 
-    public void Play(){
-        GameGrid.Generate(gridSize.x,gridSize.y, bombCount);
+    public void Play()
+    {
+        GameGrid.FlagsLeft = bombCount + 10;
+        GameGrid.Generate(gridSize.x, gridSize.y, bombCount);
         backgroundPanel.SetActive(false);
     }
 }
