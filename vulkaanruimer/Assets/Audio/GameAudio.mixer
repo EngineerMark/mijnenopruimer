@@ -1,5 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-6113113588407400309
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MasterVolume
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: b945d9ecc8918c34a87d2733ca7f8359
+  m_Children:
+  - {fileID: 9017340751735419110}
+  - {fileID: -5042745124336889163}
+  m_Volume: 629c1ee6d841b154abc4c2ccf66663be
+  m_Pitch: fc7568e6474390347a52d5e58273631d
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -4767638996614062144}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-5042745124336889163
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -19,6 +40,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-4767638996614062144
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 157bc04d1b392ec49a24af60edf79657
+  m_EffectName: Attenuation
+  m_MixLevel: aa2b456b268250447b7e606574cbeb2a
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-1114578275880390538
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -48,12 +83,17 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 048f40439089b0348ac17ebfd846e747
+    name: MyExposedParam
+  - guid: 629c1ee6d841b154abc4c2ccf66663be
+    name: MasterVolume
   m_AudioMixerGroupViews:
   - guids:
     - 7be3c54fca8df554cb056e1b430051b0
     - e08e070ddbd2c2d4285ef9852d5cfe54
     - d4b3902b7f4757c4dbbc895b4e5d2595
+    - b945d9ecc8918c34a87d2733ca7f8359
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -67,8 +107,7 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 7be3c54fca8df554cb056e1b430051b0
   m_Children:
-  - {fileID: 9017340751735419110}
-  - {fileID: -5042745124336889163}
+  - {fileID: -6113113588407400309}
   m_Volume: 048f40439089b0348ac17ebfd846e747
   m_Pitch: 31e37ade35331b343a0bd480fb35ac05
   m_Send: 00000000000000000000000000000000
